@@ -23,13 +23,17 @@ $(document).ready(function() {
     var dbn2Canvas = new Interpreter($("#canvas")[0])
     var play = function() {
         dbn2Canvas.reset()
+        var code = $("#code").val();
+        if (!/\n$/.test(code)) {
+          code += '\n'
+        }
         dbn2Canvas.evalExpression(
-            DBNParser.parse($("#code").val())
+            DBNParser.parse(code)
         )
     }
     var loadExample = function(num) {
         $.get('examples/' + num + '.dbn', function(data) {
-          $('#code').html(data);
+          $('#code').val(data);
           play()
         });
     }
